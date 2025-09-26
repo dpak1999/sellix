@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 import { Navbar } from "./_components/navbar";
+import { Footer } from "./_components/footer";
 
 export default function HomeLaout({
   children,
@@ -8,9 +9,10 @@ export default function HomeLaout({
   children: ReactNode;
 }>) {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      {children}
+      <div className="flex-1 bg-[#f4f4f0]">{children}</div>
+      <Footer />
     </div>
   );
 }
