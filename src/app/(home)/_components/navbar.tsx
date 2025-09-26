@@ -2,11 +2,13 @@
 
 import { Poppins } from "next/font/google";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { usePathname } from "next/navigation";
+import { MenuIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { NavbarSidebar } from "./navbar-sidebar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -62,6 +64,8 @@ const navbarItems = [
 export const Navbar = () => {
   const pathname = usePathname();
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <nav className="h-20 flex border-b justify-between font-medium bg-white">
       <Link href={"/"} className="pl-6 flex items-center">
@@ -69,6 +73,12 @@ export const Navbar = () => {
           Sellix
         </span>
       </Link>
+
+      <NavbarSidebar
+        items={navbarItems}
+        open={isSidebarOpen}
+        onOpenChange={setIsSidebarOpen}
+      />
 
       <div className="items-center gap-4 hidden lg:flex">
         {navbarItems.map((navbarItem) => (
@@ -96,6 +106,16 @@ export const Navbar = () => {
           className="border-l border-t-0 border-b-0 border-r-0 px-12 h-full rounded-none bg-black text-white hover:text-black hover:bg-pink-400 text-lg transition-colors"
         >
           <Link href={"/sign-up"}>Start selling</Link>
+        </Button>
+      </div>
+
+      <div className="flex lg:hidden items-center justify-center">
+        <Button
+          variant={"ghost"}
+          className="size-12 border-transparent bg-white"
+          onClick={() => setIsSidebarOpen(true)}
+        >
+          <MenuIcon />
         </Button>
       </div>
     </nav>
