@@ -1,15 +1,15 @@
+"use client";
+
 import { SearchInput } from "./search-input";
 import { Categories } from "./categories";
-import { CustomCategory } from "../../types";
+import { trpc } from "@/trpc/client";
 
-interface SearchFilterProps {
-  data: CustomCategory[];
-}
+export const SearchFilters = () => {
+  const [data] = trpc.categories.getMany.useSuspenseQuery();
 
-export const SearchFilters = ({ data }: SearchFilterProps) => {
   return (
     <div className="px-4 py-8 lg:px-12 border-b flex flex-col gap-4 w-full">
-      <SearchInput data={data} />
+      <SearchInput />
 
       <div className="hidden lg:block">
         <Categories data={data} />

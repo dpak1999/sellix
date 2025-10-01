@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -10,16 +12,17 @@ import {
 } from "@/components/ui/sheet";
 import { CustomCategory } from "../../types";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { trpc } from "@/trpc/client";
 
 export const CategoriesSidebar = ({
-  onOpenChange,
+  onOpenChangeAction,
   open,
-  data,
 }: {
   open: boolean;
-  onOpenChange: (open: boolean) => void;
-  data: CustomCategory[];
+  onOpenChangeAction: (open: boolean) => void;
 }) => {
+  const [data] = trpc.categories.getMany.useSuspenseQuery();
+
   const [parentCategories, setParentCategories] = useState<
     CustomCategory[] | null
   >(null);
@@ -33,7 +36,7 @@ export const CategoriesSidebar = ({
   const handOpenChange = (open: boolean) => {
     setselectedCategory(null);
     setParentCategories(null);
-    onOpenChange(open);
+    onOpenChangeAction(open);
   };
 
   const handleCategoryClick = (category: CustomCategory) => {
