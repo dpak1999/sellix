@@ -26,6 +26,7 @@ export default async function HomeLaout({
         exists: false,
       },
     },
+    sort: "name",
   });
 
   const formattedData: CustomCategory[] = data.docs.map((doc) => ({
