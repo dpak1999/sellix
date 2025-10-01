@@ -1,7 +1,10 @@
 import { ReactNode, Suspense } from "react";
 import { Navbar } from "./_components/navbar";
 import { Footer } from "./_components/footer";
-import { SearchFilters } from "./_components/search-filters";
+import {
+  SearchFilterLoading,
+  SearchFilters,
+} from "./_components/search-filters";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 export default async function HomeLaout({
@@ -15,7 +18,7 @@ export default async function HomeLaout({
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <HydrateClient>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<SearchFilterLoading />}>
           <SearchFilters />
         </Suspense>
       </HydrateClient>
