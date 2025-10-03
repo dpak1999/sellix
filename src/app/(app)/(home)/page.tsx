@@ -1,3 +1,9 @@
+"use client";
+
+import { trpc } from "@/trpc/client";
+
 export default function Home() {
-  return <div>Home page</div>;
+  const { data } = trpc.auth.session.useQuery();
+
+  return <div>Home page - {JSON.stringify(data?.user, null, 2)}</div>;
 }
