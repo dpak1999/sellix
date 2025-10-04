@@ -19,6 +19,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/trpc/client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -40,7 +42,16 @@ export const SignUpView = () => {
   const usernameError = form.formState.errors.username;
 
   const showPreview = username && !usernameError;
-  const registerMutateion = trpc.auth.register.useMutation();
+  const router = useRouter();
+
+  const registerMutateion = trpc.auth.register.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess() {
+      router.push("/");
+    },
+  });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
     registerMutateion.mutate(values);
