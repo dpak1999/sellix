@@ -44,7 +44,7 @@ export const SignUpView = () => {
   const showPreview = username && !usernameError;
   const router = useRouter();
 
-  const registerMutateion = trpc.auth.register.useMutation({
+  const registerMutation = trpc.auth.register.useMutation({
     onError(error) {
       toast.error(error.message);
     },
@@ -54,7 +54,7 @@ export const SignUpView = () => {
   });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    registerMutateion.mutate(values);
+    registerMutation.mutate(values);
   };
 
   return (
@@ -128,7 +128,11 @@ export const SignUpView = () => {
                 <FormItem>
                   <FormLabel className="text-base">Password</FormLabel>
                   <FormControl>
-                    <Input {...field} autoComplete="off" type="password" />
+                    <Input
+                      {...field}
+                      autoComplete="new-password"
+                      type="password"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +140,7 @@ export const SignUpView = () => {
             />
 
             <Button
-              disabled={registerMutateion.isPending}
+              disabled={registerMutation.isPending}
               type="submit"
               size={"lg"}
               variant={"elevated"}
