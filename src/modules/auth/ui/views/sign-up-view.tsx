@@ -43,12 +43,14 @@ export const SignUpView = () => {
 
   const showPreview = username && !usernameError;
   const router = useRouter();
+  const trpcUtils = trpc.useUtils();
 
   const registerMutation = trpc.auth.register.useMutation({
     onError(error) {
       toast.error(error.message);
     },
     onSuccess() {
+      trpcUtils.auth.session.invalidate();
       router.push("/");
     },
   });

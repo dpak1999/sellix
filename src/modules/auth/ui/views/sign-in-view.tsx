@@ -37,12 +37,14 @@ export const SignInView = () => {
   });
 
   const router = useRouter();
+  const trpcUtils = trpc.useUtils();
 
   const loginMutation = trpc.auth.login.useMutation({
     onError(error) {
       toast.error(error.message);
     },
     onSuccess() {
+      trpcUtils.auth.session.invalidate();
       router.push("/");
     },
   });
