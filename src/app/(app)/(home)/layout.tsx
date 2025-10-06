@@ -1,10 +1,10 @@
 import { ReactNode, Suspense } from "react";
-import { Navbar } from "./_components/navbar";
-import { Footer } from "./_components/footer";
+import { Navbar } from "../../../modules/home/ui/components/navbar";
+import { Footer } from "../../../modules/home/ui/components/footer";
 import {
   SearchFilterLoading,
   SearchFilters,
-} from "./_components/search-filters";
+} from "../../../modules/home/ui/components/search-filters";
 import { HydrateClient, trpc } from "@/trpc/server";
 
 export default async function HomeLaout({

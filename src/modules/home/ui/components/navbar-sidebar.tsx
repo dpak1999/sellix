@@ -9,22 +9,12 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface NavbarItem {
-  href: string;
-  children: ReactNode;
-}
-
 interface NavbarSidebarProps {
-  items: NavbarItem[];
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export const NavbarSidebar = ({
-  items,
-  onOpenChange,
-  open,
-}: NavbarSidebarProps) => {
+export const NavbarSidebar = ({ onOpenChange, open }: NavbarSidebarProps) => {
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="p-0 transition-none">
@@ -35,18 +25,7 @@ export const NavbarSidebar = ({
         </SheetHeader>
 
         <ScrollArea className="flex flex-col overflow-y-auto h-full pb-2">
-          {items.map((item) => (
-            <Link
-              onClick={() => onOpenChange(false)}
-              key={item.href}
-              href={item.href}
-              className="w-full text-left p-4 hover:bg-black hover:text-white flex items-center  text-base font-medium"
-            >
-              {item.children}
-            </Link>
-          ))}
-
-          <div className="border-t">
+          <div>
             <Link
               onClick={() => onOpenChange(false)}
               href={"/sign-in"}
